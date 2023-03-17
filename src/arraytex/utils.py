@@ -1,22 +1,22 @@
 """Utils module."""
 
 from functools import wraps
-from typing import Any
 from typing import Callable
 from typing import TypeVar
-from typing import cast
 
 import pyperclip
+from typing_extensions import ParamSpec
 
 
-F = TypeVar("F", bound=Callable[..., str])
+P = ParamSpec("P")
+T = TypeVar("T")
 
 
-def use_clipboard(func: F) -> F:
+def use_clipboard(func: Callable[P, T]) -> Callable[P, str]:
     """Augument decorated functions argument to copy the output to the clipboard."""
 
     @wraps(func)
-    def wrapper_func(*args: Any, **kwargs: Any) -> str:
+    def wrapper_func(*args: P.args, **kwargs: P.kwargs) -> str:
         """Wrapped function."""
         out = func(*args, **kwargs)
 
@@ -24,6 +24,6 @@ def use_clipboard(func: F) -> F:
             pyperclip.copy(out)
             print("ArrayTeX: copied to clipboard")
 
-        return out
+        return str(out)
 
-    return cast(F, wrapper_func)
+    return wrapper_func
