@@ -19,6 +19,7 @@ Changelog = "https://github.com/dbatten5/arraytex/releases"
 python = "^3.8"
 click = ">=8.0.1"
 numpy = "^1.24.2"
+pyperclip = "^1.8.2"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^6.2.4"

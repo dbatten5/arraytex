@@ -34,7 +34,8 @@ Convert a `numpy.NDArray` to various LaTeX forms.
 \end{bmatrix}
 ```
 
-Inspired by @josephcslater's [array_to_latex](https://github.com/josephcslater/array_to_latex).
+Inspired by [@josephcslater](https://github.com/josephcslater)'s
+[array_to_latex](https://github.com/josephcslater/array_to_latex).
 
 ## Features
 

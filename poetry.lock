@@ -1014,6 +1014,17 @@ files = [
 plugins = ["importlib-metadata"]
 
 [[package]]
+name = "pyperclip"
+version = "1.8.2"
+description = "A cross-platform clipboard module for Python. (Only handles plain text for now.)"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pyperclip-1.8.2.tar.gz", hash = "sha256:105254a8b04934f0bc84e9c24eb360a591aaf6535c9def5f29d92af107a9bf57"},
+]
+
+[[package]]
 name = "pytest"
 version = "6.2.5"
 description = "pytest: simple powerful testing with Python"
@@ -1676,4 +1687,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "10aaeeb69555f44e97e0d5ea2e6c0ca2a0308924be43dd6133e4e695f96ec7b9"
+content-hash = "f22098fb4a61a7e091891568a86aeffd851e9f39655fab37c50d798217c88d14"

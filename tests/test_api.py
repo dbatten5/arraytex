@@ -1,4 +1,7 @@
 """Tests for the main API."""
+from unittest import mock
+from unittest.mock import MagicMock
+
 import numpy as np
 import pytest
 
@@ -136,3 +139,18 @@ class TestToMatrix:
 
         with pytest.raises(TooManyDimensionsError):
             to_matrix(mat)
+
+
+class TestClipboard:
+    """Tests for the `to_clp` arg."""
+
+    @mock.patch("arraytex.utils.pyperclip", autospec=True)
+    def test_success(self, mock_pyperclip: MagicMock) -> None:
+        """Outputs are copied to the clipboard."""
+        mat = np.array(1)
+
+        to_matrix(mat, to_clp=True)
+
+        mock_pyperclip.copy.assert_called_once_with(
+            "\\begin{bmatrix}\n1 \\\\\n\\end{bmatrix}"
+        )

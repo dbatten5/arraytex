@@ -9,13 +9,16 @@ import numpy as np
 from numpy.typing import NDArray
 
 from .errors import TooManyDimensionsError
+from .utils import use_clipboard
 
 
+@use_clipboard
 def to_matrix(
     arr: NDArray[Any],
     style: str = "b",
     num_format: Optional[str] = None,
     scientific_notation: bool = False,
+    to_clp: bool = False,
 ) -> str:
     """Convert a numpy.NDArray to LaTeX matrix.
 
@@ -25,6 +28,7 @@ def to_matrix(
         num_format: a number formatter string, e.g. ".2f"
         scientific_notation: a flag to determine whether 1 x 10^3 should be used,
             otherwise e-notation is used (1e3)
+        to_clp: copy the output to the system clipboard
 
     Returns:
         the string representation of the array
