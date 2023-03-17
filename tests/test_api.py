@@ -1,7 +1,9 @@
 """Tests for the main API."""
 import numpy as np
+import pytest
 
 from arraytex.api import to_matrix
+from arraytex.errors import TooManyDimensionsError
 
 
 class TestToMatrix:
@@ -101,3 +103,36 @@ class TestToMatrix:
 4.00 \times 10^{-03} & 5.00 \times 10^{-03} & 6.00 \times 10^{-03} \\
 \end{bmatrix}"""
         )
+
+    def test_one_d(self) -> None:
+        """One dimensional vectors are handled correctly."""
+        mat = np.array([1, 2, 3])
+
+        out = to_matrix(mat)
+
+        assert (
+            out
+            == r"""\begin{bmatrix}
+1 & 2 & 3 \\
+\end{bmatrix}"""
+        )
+
+    def test_0_d(self) -> None:
+        """0 dimensional vectors are handled correctly."""
+        mat = np.array(1)
+
+        out = to_matrix(mat)
+
+        assert (
+            out
+            == r"""\begin{bmatrix}
+1 \\
+\end{bmatrix}"""
+        )
+
+    def test_3_d(self) -> None:
+        """>2 dimensional arrays are handled correctly."""
+        mat = np.arange(8).reshape(2, 2, 2)
+
+        with pytest.raises(TooManyDimensionsError):
+            to_matrix(mat)

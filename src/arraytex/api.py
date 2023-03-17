@@ -8,6 +8,8 @@ from typing import Union
 import numpy as np
 from numpy.typing import NDArray
 
+from .errors import TooManyDimensionsError
+
 
 def to_matrix(
     arr: NDArray[Any],
@@ -26,7 +28,13 @@ def to_matrix(
 
     Returns:
         the string representation of the array
+
+    Raises:
+        TooManyDimensionsError: when the supplied array has more than 2 dimensions
     """
+    if len(arr.shape) > 2:
+        raise TooManyDimensionsError
+
     environment = f"{style}matrix"
 
     formatter = {}

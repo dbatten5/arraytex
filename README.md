@@ -40,6 +40,7 @@ Inspired by @josephcslater's [array_to_latex](https://github.com/josephcslater/a
 
 - Support for different environment delimiters (`bmatrix` or `pmatrix`) and different
   number formatters (`:.2f`, `:.3e`, etc.).
+- Fully tested and typed.
 
 ## Requirements
 
