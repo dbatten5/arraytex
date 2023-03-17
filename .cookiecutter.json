@@ -1,0 +1,14 @@
+{
+  "_output_dir": "/Users/dominicbatten/projects/personal",
+  "_template": "gh:cjolowicz/cookiecutter-hypermodern-python",
+  "author": "Dom Batten",
+  "copyright_year": "2023",
+  "development_status": "Development Status :: 3 - Alpha",
+  "email": "dominic.batten@googlemail.com",
+  "friendly_name": "ArrayTeX",
+  "github_user": "dbatten5",
+  "license": "MIT",
+  "package_name": "arraytex",
+  "project_name": "arraytex",
+  "version": "0.0.1"
+}
