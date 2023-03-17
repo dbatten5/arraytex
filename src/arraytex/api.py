@@ -79,6 +79,8 @@ def to_tabular(
 
     Raises:
         TooManyDimensionsError: when the supplied array has more than 2 dimensions
+        DimensionMismatchError: when there are mismatched column identifiers and
+            dimensions
     """
     if len(arr.shape) == 1:
         n_cols = arr.shape[0]
