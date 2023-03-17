@@ -25,9 +25,9 @@ Convert a `numpy.NDArray` to various LaTeX forms.
 
 ```python
 >>> import numpy as np
->>> from arraytex import to_matrix
+>>> import arraytex as atx
 >>> A = np.array([[1, 2, 3], [4, 5, 6]])
->>> print(to_matrix(A))
+>>> print(atx.to_matrix(A))
 \begin{bmatrix}
 1 & 2 & 3 \\
 4 & 5 & 6 \\
@@ -38,7 +38,7 @@ Inspired by @josephcslater's [array_to_latex](https://github.com/josephcslater/a
 
 ## Features
 
-- Options to use different environment delimiters (`bmatrix` or `pmatrix`) and different
+- Support for different environment delimiters (`bmatrix` or `pmatrix`) and different
   number formatters (`:.2f`, `:.3e`, etc.).
 
 ## Requirements
