@@ -6,6 +6,8 @@ import numpy as np
 import pytest
 
 from arraytex.api import to_matrix
+from arraytex.api import to_tabular
+from arraytex.errors import DimensionMismatchError
 from arraytex.errors import TooManyDimensionsError
 
 
@@ -153,4 +155,92 @@ class TestClipboard:
 
         mock_pyperclip.copy.assert_called_once_with(
             "\\begin{bmatrix}\n1 \\\\\n\\end{bmatrix}"
+        )
+
+
+class TestToTabular:
+    """Tests for the `to_tabular` function."""
+
+    def test_too_many_dimensions(self) -> None:
+        """Error is thrown for too many dimensions."""
+        mat = np.arange(8).reshape(2, 2, 2)
+
+        with pytest.raises(TooManyDimensionsError):
+            to_tabular(mat)
+
+    def test_mismatch_col_align(self) -> None:
+        """Error is thrown if wrong number of col_align items."""
+        mat = np.arange(6).reshape(2, 3)
+
+        with pytest.raises(DimensionMismatchError) as exc:
+            to_tabular(mat, col_align=["c", "c"])
+
+        assert str(exc.value) == (
+            "Number of `col_align` items doesn't match number of "
+            + "columns (2 against 3)"
+        )
+
+    def test_mismatch_cols(self) -> None:
+        """Error is thrown if wrong number of cols items."""
+        mat = np.arange(6).reshape(2, 3)
+
+        with pytest.raises(DimensionMismatchError) as exc:
+            to_tabular(mat, cols=["1", "2"])
+
+        assert str(exc.value) == (
+            "Number of `cols` items doesn't match number of " + "columns (2 against 3)"
+        )
+
+    def test_default(self) -> None:
+        """A formatted matrix is returned."""
+        mat = np.arange(1, 7).reshape(2, 3)
+
+        out = to_tabular(mat)
+
+        assert (
+            out
+            == r"""\begin{tabular}{c c c}
+\toprule
+Col 1 & Col 2 & Col 3 \\
+\midrule
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+\endrule
+\end{tabular}"""
+        )
+
+    def test_given_cols(self) -> None:
+        """User can supply col names."""
+        mat = np.arange(1, 5).reshape(2, 2)
+
+        out = to_tabular(mat, cols=["1", "b"])
+
+        assert (
+            out
+            == r"""\begin{tabular}{c c}
+\toprule
+1 & b \\
+\midrule
+1 & 2 \\
+3 & 4 \\
+\endrule
+\end{tabular}"""
+        )
+
+    def test_given_col_align(self) -> None:
+        """User can supply col_align list."""
+        mat = np.arange(1, 5).reshape(2, 2)
+
+        out = to_tabular(mat, col_align=["l", "r"])
+
+        assert (
+            out
+            == r"""\begin{tabular}{l r}
+\toprule
+Col 1 & Col 2 \\
+\midrule
+1 & 2 \\
+3 & 4 \\
+\endrule
+\end{tabular}"""
         )
