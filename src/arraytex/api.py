@@ -17,14 +17,14 @@ def to_matrix(
 
     Args:
         arr: the array to be converted
-        style: a style formatter string, either "b" for "bmatrid" or "p" for "pmatrix"
+        style: a style formatter string, either "b" for "bmatrix" or "p" for "pmatrix"
         num_format: a number formatter string, e.g. ".2f"
 
     Returns:
         the string representation of the array
     """
 
-    def num_formatter(x: Union[int, float]) -> str:
+    def num_formatter(x: Union[np.int64, np.float64, np.float32]) -> str:
         return f"%{num_format}" % x
 
     environment = f"{style}matrix"
