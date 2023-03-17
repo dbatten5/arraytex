@@ -21,13 +21,29 @@
 [pre-commit]: https://github.com/pre-commit/pre-commit
 [black]: https://github.com/psf/black
 
+Convert a `numpy.NDArray` to various LaTeX forms.
+
+```python
+>>> import numpy as np
+>>> from arraytex import to_matrix
+>>> A = np.array([[1, 2, 3], [4, 5, 6]])
+>>> print(to_matrix(A))
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+\end{bmatrix}
+```
+
+Inspired by @josephcslater's [array_to_latex](https://github.com/josephcslater/array_to_latex).
+
 ## Features
 
-- TODO
+- Options to use different environment delimiters (`bmatrix` or `pmatrix`) and different
+  number formatters (`:.2f`, `:.3e`, etc.).
 
 ## Requirements
 
-- TODO
+- `python >= 3.8`
 
 ## Installation
 
@@ -39,7 +55,7 @@ $ pip install arraytex
 
 ## Usage
 
-Please see the [Command-line Reference] for details.
+Please see the [docs](https://arraytex.readthedocs.io/) for more information.
 
 ## Contributing
 
