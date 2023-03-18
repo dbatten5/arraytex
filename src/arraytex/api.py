@@ -82,9 +82,13 @@ def to_tabular(
         DimensionMismatchError: when there are mismatched column identifiers and
             dimensions
     """
-    if len(arr.shape) == 1:
+    n_dims = len(arr.shape)
+
+    if n_dims == 0:
+        n_cols = 1
+    elif n_dims == 1:
         n_cols = arr.shape[0]
-    elif len(arr.shape) == 2:
+    elif n_dims == 2:
         n_cols = arr.shape[1]
     else:
         raise TooManyDimensionsError

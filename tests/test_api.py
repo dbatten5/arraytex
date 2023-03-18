@@ -261,3 +261,20 @@ Col 1 & Col 2 & Col 3 \\
 \endrule
 \end{tabular}"""
         )
+
+    def test_0_d(self) -> None:
+        """0 dimensional scalars are handled properly."""
+        mat = np.array(1)
+
+        out = to_tabular(mat)
+
+        assert (
+            out
+            == r"""\begin{tabular}{c}
+\toprule
+Col 1 \\
+\midrule
+1 \\
+\endrule
+\end{tabular}"""
+        )
