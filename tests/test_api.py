@@ -244,3 +244,20 @@ Col 1 & Col 2 \\
 \endrule
 \end{tabular}"""
         )
+
+    def test_one_dimensional(self) -> None:
+        """One dimensinal vectors are expanded properly."""
+        mat = np.arange(1, 4)
+
+        out = to_tabular(mat)
+
+        assert (
+            out
+            == r"""\begin{tabular}{c c c}
+\toprule
+Col 1 & Col 2 & Col 3 \\
+\midrule
+1 & 2 & 3 \\
+\endrule
+\end{tabular}"""
+        )
