@@ -41,9 +41,9 @@ def to_matrix(
     if len(arr.shape) > 2:
         raise TooManyDimensionsError
 
-    environment = f"{style}matrix"
-
     lines = _parse_lines(arr, num_format, scientific_notation)
+
+    environment = f"{style}matrix"
 
     rv = [f"\\begin{{{environment}}}"]
     rv += [line.strip() + r" \\" for line in lines]
@@ -96,8 +96,8 @@ def to_tabular(
 
     if isinstance(col_align, list) and len(col_align) != n_cols:
         raise DimensionMismatchError(
-            "Number of `col_align` items doesn't match number of columns "
-            + f"({len(col_align)} against {n_cols})"
+            f"Number of `col_align` items ({len(col_align)}) "
+            + f"doesn't match number of columns ({n_cols})"
         )
 
     if isinstance(col_align, str):
@@ -105,8 +105,8 @@ def to_tabular(
 
     if cols and len(cols) != n_cols:
         raise DimensionMismatchError(
-            "Number of `cols` items doesn't match number of columns "
-            + f"({len(cols)} against {n_cols})"
+            f"Number of `cols` items ({len(cols)}) "
+            + f"doesn't match number of columns ({n_cols})"
         )
 
     if not cols:

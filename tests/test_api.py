@@ -5,8 +5,8 @@ from unittest.mock import MagicMock
 import numpy as np
 import pytest
 
-from arraytex.api import to_matrix
-from arraytex.api import to_tabular
+from arraytex import to_matrix
+from arraytex import to_tabular
 from arraytex.errors import DimensionMismatchError
 from arraytex.errors import TooManyDimensionsError
 
@@ -176,8 +176,7 @@ class TestToTabular:
             to_tabular(mat, col_align=["c", "c"])
 
         assert str(exc.value) == (
-            "Number of `col_align` items doesn't match number of "
-            + "columns (2 against 3)"
+            "Number of `col_align` items (2) doesn't match number of columns (3)"
         )
 
     def test_mismatch_cols(self) -> None:
@@ -188,7 +187,7 @@ class TestToTabular:
             to_tabular(mat, cols=["1", "2"])
 
         assert str(exc.value) == (
-            "Number of `cols` items doesn't match number of " + "columns (2 against 3)"
+            "Number of `cols` items (2) doesn't match number of columns (3)"
         )
 
     def test_default(self) -> None:
