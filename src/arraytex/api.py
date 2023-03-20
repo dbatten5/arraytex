@@ -27,12 +27,13 @@ def to_matrix(
         arr: the array to be converted
         style: a style formatter string, either "b" for "bmatrix" or "p" for "pmatrix"
         num_format: a number formatter string, e.g. ".2f"
-        scientific_notation: a flag to determine whether 1 x 10^3 should be used,
-            otherwise e-notation is used (1e3)
+        scientific_notation: a flag to determine whether e.g. 1 x 10^3 format should
+            be used if ".e" is used for `num_format`, otherwise e-notation (1e3)
+            is used
         to_clp: copy the output to the system clipboard
 
     Returns:
-        the string representation of the array
+        the LaTeX matrix string representation of the array
 
     Raises:
         TooManyDimensionsError: when the supplied array has more than 2 dimensions
@@ -75,7 +76,7 @@ def to_tabular(
         to_clp: copy the output to the system clipboard
 
     Returns:
-        the string representation of the array
+        the LaTeX tabular string representation of the array
 
     Raises:
         TooManyDimensionsError: when the supplied array has more than 2 dimensions
