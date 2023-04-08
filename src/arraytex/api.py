@@ -25,7 +25,7 @@ def to_matrix(
 
     Args:
         arr: the array to be converted
-        style: a style formatter string, either "b" for "bmatrix" or "p" for "pmatrix"
+        style: a style formatter string, such as "b" for "bmatrix" or "p" for "pmatrix"
         num_format: a number formatter string, e.g. ".2f"
         scientific_notation: a flag to determine whether e.g. 1 x 10^3 format should
             be used if ".e" is used for `num_format`, otherwise e-notation (1e3)
@@ -119,7 +119,7 @@ def to_tabular(
     rv += [" & ".join(cols) + r" \\"]
     rv += [r"\midrule"]
     rv += [line.strip() + r" \\" for line in lines]
-    rv += [r"\endrule"]
+    rv += [r"\bottomrule"]
     rv += [r"\end{tabular}"]
 
     return "\n".join(rv)
