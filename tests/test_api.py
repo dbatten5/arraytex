@@ -204,7 +204,7 @@ Col 1 & Col 2 & Col 3 \\
 \midrule
 1 & 2 & 3 \\
 4 & 5 & 6 \\
-\endrule
+\bottomrule
 \end{tabular}"""
         )
 
@@ -222,7 +222,7 @@ Col 1 & Col 2 & Col 3 \\
 \midrule
 1 & 2 \\
 3 & 4 \\
-\endrule
+\bottomrule
 \end{tabular}"""
         )
 
@@ -240,7 +240,7 @@ Col 1 & Col 2 \\
 \midrule
 1 & 2 \\
 3 & 4 \\
-\endrule
+\bottomrule
 \end{tabular}"""
         )
 
@@ -257,7 +257,7 @@ Col 1 & Col 2 \\
 Col 1 & Col 2 & Col 3 \\
 \midrule
 1 & 2 & 3 \\
-\endrule
+\bottomrule
 \end{tabular}"""
         )
 
@@ -274,6 +274,6 @@ Col 1 & Col 2 & Col 3 \\
 Col 1 \\
 \midrule
 1 \\
-\endrule
+\bottomrule
 \end{tabular}"""
         )
