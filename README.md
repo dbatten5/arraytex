@@ -39,7 +39,7 @@ Inspired by [@josephcslater](https://github.com/josephcslater)'s
 
 ## Features
 
-- Support for different matrix environment delimiters (`bmatrix` or `pmatrix`).
+- Support for different matrix environment delimiters, (`bmatrix`, `pmatrix`, etc.)
 - Support for tabular environments.
 - Support for builtin number formats (`:.2f`, `:.3e`, etc.).
 - Fully tested and typed.
