@@ -179,15 +179,15 @@ class TestToTabular:
             "Number of `col_align` items (2) doesn't match number of columns (3)"
         )
 
-    def test_mismatch_cols(self) -> None:
-        """Error is thrown if wrong number of cols items."""
+    def test_mismatch_col_names(self) -> None:
+        """Error is thrown if wrong number of col_names items."""
         mat = np.arange(6).reshape(2, 3)
 
         with pytest.raises(DimensionMismatchError) as exc:
-            to_tabular(mat, cols=["1", "2"])
+            to_tabular(mat, col_names=["1", "2"])
 
         assert str(exc.value) == (
-            "Number of `cols` items (2) doesn't match number of columns (3)"
+            "Number of `col_names` items (2) doesn't match number of columns (3)"
         )
 
     def test_default(self) -> None:
@@ -208,11 +208,11 @@ Col 1 & Col 2 & Col 3 \\
 \end{tabular}"""
         )
 
-    def test_given_cols(self) -> None:
+    def test_given_col_names(self) -> None:
         """User can supply col names."""
         mat = np.arange(1, 5).reshape(2, 2)
 
-        out = to_tabular(mat, cols=["1", "b"])
+        out = to_tabular(mat, col_names=["1", "b"])
 
         assert (
             out
@@ -277,3 +277,121 @@ Col 1 \\
 \bottomrule
 \end{tabular}"""
         )
+
+    class TestColIndex:
+        """Tests for the `col_index` support."""
+
+        def test_default(self) -> None:
+            """`col_index` forms the row names."""
+            col_index = ["Row 1", "Row 2"]
+            mat = np.arange(1, 5).reshape(2, 2)
+
+            out = to_tabular(mat, col_index=col_index)
+
+            assert (
+                out
+                == r"""\begin{tabular}{l c c}
+\toprule
+Index & Col 1 & Col 2 \\
+\midrule
+Row 1 & 1 & 2 \\
+Row 2 & 3 & 4 \\
+\bottomrule
+\end{tabular}"""
+            )
+
+        def test_bad_dimensions(self) -> None:
+            """An error is raised if wrong dimension of `col_index`."""
+            col_index = ["Row 1", "Row 2"]
+            mat = np.arange(1, 4).reshape(3, 1)
+
+            with pytest.raises(DimensionMismatchError) as exc:
+                to_tabular(mat, col_index=col_index)
+
+            assert str(exc.value) == (
+                "Number of `col_index` items (2) doesn't match number of rows (3)"
+            )
+
+        def test_given_col_names(self) -> None:
+            """A given index name as part of `col_names` is used."""
+            col_index = ["Row 1", "Row 2"]
+            col_names = ["My Index", "Col 1", "Col 2"]
+            mat = np.arange(1, 5).reshape(2, 2)
+
+            out = to_tabular(mat, col_index=col_index, col_names=col_names)
+
+            assert (
+                out
+                == r"""\begin{tabular}{l c c}
+\toprule
+My Index & Col 1 & Col 2 \\
+\midrule
+Row 1 & 1 & 2 \\
+Row 2 & 3 & 4 \\
+\bottomrule
+\end{tabular}"""
+            )
+
+        def test_given_col_align(self) -> None:
+            """A given col align char can be used for the col index."""
+            col_index = ["Row 1", "Row 2"]
+            mat = np.arange(1, 5).reshape(2, 2)
+
+            out = to_tabular(mat, col_index=col_index, col_align=["r", "c", "c"])
+
+            assert (
+                out
+                == r"""\begin{tabular}{r c c}
+\toprule
+Index & Col 1 & Col 2 \\
+\midrule
+Row 1 & 1 & 2 \\
+Row 2 & 3 & 4 \\
+\bottomrule
+\end{tabular}"""
+            )
+
+        def test_given_col_name_and_align(self) -> None:
+            """A given col index name and align can be used for the index."""
+            col_index = ["Row 1", "Row 2"]
+            col_names = ["My Index", "Col 1", "Col 2"]
+            col_align = ["r", "c", "c"]
+            mat = np.arange(1, 5).reshape(2, 2)
+
+            out = to_tabular(
+                mat,
+                col_align=col_align,
+                col_names=col_names,
+                col_index=col_index,
+            )
+
+            assert (
+                out
+                == r"""\begin{tabular}{r c c}
+\toprule
+My Index & Col 1 & Col 2 \\
+\midrule
+Row 1 & 1 & 2 \\
+Row 2 & 3 & 4 \\
+\bottomrule
+\end{tabular}"""
+            )
+
+        def test_col_align_bad_dimensions(self) -> None:
+            """Bad dimensions of `col_align` is caught."""
+            col_index = ["Row 1", "Row 2"]
+            col_names = ["My Index", "Col 1", "Col 2"]
+            col_align = ["r", "c"]
+            mat = np.arange(1, 5).reshape(2, 2)
+
+            with pytest.raises(DimensionMismatchError) as exc:
+                to_tabular(
+                    mat,
+                    col_align=col_align,
+                    col_names=col_names,
+                    col_index=col_index,
+                )
+
+            assert str(exc.value) == (
+                "Number of `col_align` items (2) doesn't match number of columns (3)"
+            )
