@@ -58,7 +58,8 @@ def to_tabular(
     num_format: Optional[str] = None,
     scientific_notation: bool = False,
     col_align: Union[List[str], str] = "c",
-    cols: Optional[List[str]] = None,
+    col_names: Optional[List[str]] = None,
+    col_index: Optional[List[str]] = None,
     to_clp: bool = False,
 ) -> str:
     """Convert a numpy.NDArray to LaTeX tabular environment.
@@ -72,7 +73,8 @@ def to_tabular(
             single character is provided then it will be broadcast to all columns. If a list
             is provided then each item will be assigned to each column, list size and
             number of columns must match
-        cols: an optional list of column names, otherwise generic names will be assigned
+        col_names: an optional list of column names, otherwise generic names will be assigned
+        col_index: an optional list of column indices, i.e. row identifiers
         to_clp: copy the output to the system clipboard
 
     Returns:
@@ -94,29 +96,57 @@ def to_tabular(
     else:
         raise TooManyDimensionsError
 
-    if isinstance(col_align, list) and len(col_align) != n_cols:
+    if not col_index:
+        if isinstance(col_align, list) and len(col_align) != n_cols:
+            raise DimensionMismatchError(
+                f"Number of `col_align` items ({len(col_align)}) "
+                + f"doesn't match number of columns ({n_cols})"
+            )
+
+        if col_names and len(col_names) != n_cols:
+            raise DimensionMismatchError(
+                f"Number of `col_names` items ({len(col_names)}) "
+                + f"doesn't match number of columns ({n_cols})"
+            )
+
+    if (
+        col_index
+        and col_names
+        and isinstance(col_align, list)
+        and len(col_names) != len(col_align)
+    ):
         raise DimensionMismatchError(
             f"Number of `col_align` items ({len(col_align)}) "
-            + f"doesn't match number of columns ({n_cols})"
+            + f"doesn't match number of columns ({len(col_names)})"
         )
 
     if isinstance(col_align, str):
         col_align = [col_align for _ in range(n_cols)]
 
-    if cols and len(cols) != n_cols:
-        raise DimensionMismatchError(
-            f"Number of `cols` items ({len(cols)}) "
-            + f"doesn't match number of columns ({n_cols})"
-        )
-
-    if not cols:
-        cols = [f"Col {i + 1}" for i in range(n_cols)]
+    if not col_names:
+        col_names = [f"Col {i + 1}" for i in range(n_cols)]
 
     lines = _parse_lines(arr, num_format, scientific_notation)
 
+    if col_index:
+        if len(col_index) != len(lines):
+            raise DimensionMismatchError(
+                f"Number of `col_index` items ({len(col_index)}) "
+                + f"doesn't match number of rows ({len(lines)})"
+            )
+
+        if len(col_align) == n_cols:
+            col_align.insert(0, "l")
+
+        if len(col_names) == n_cols:
+            col_names.insert(0, "Index")
+
+        for idx, line in enumerate(lines):
+            lines[idx] = f"{col_index[idx]} & " + line.strip()
+
     rv = [f"\\begin{{tabular}}{{{' '.join(col_align)}}}"]
     rv += [r"\toprule"]
-    rv += [" & ".join(cols) + r" \\"]
+    rv += [" & ".join(col_names) + r" \\"]
     rv += [r"\midrule"]
     rv += [line.strip() + r" \\" for line in lines]
     rv += [r"\bottomrule"]

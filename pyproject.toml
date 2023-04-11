@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "arraytex"
-version = "0.0.6"
+version = "0.0.7"
 description = "ArrayTeX"
 authors = ["Dom Batten <dominic.batten@googlemail.com>"]
 license = "MIT"
@@ -106,7 +106,6 @@ line-length = 80
 select = [
     'B',
     'B9',
-    'C',
     'D',
     'E',
     'F',
