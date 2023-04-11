@@ -141,12 +141,6 @@ def to_tabular(
         if len(col_names) == n_cols:
             col_names.insert(0, "Index")
 
-        if len(col_align) != len(col_names):
-            raise DimensionMismatchError(
-                f"Number of `col_align` items ({len(col_align)}) "
-                + f"doesn't match number of cols ({len(col_names)})"
-            )
-
         for idx, line in enumerate(lines):
             lines[idx] = f"{col_index[idx]} & " + line.strip()
 
