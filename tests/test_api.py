@@ -90,6 +90,20 @@ class TestToMatrix:
 \end{bmatrix}"""
         )
 
+    def test_e_notation_positive(self) -> None:
+        """Scientific E notation can be selected with positive powers."""
+        mat = np.arange(6).reshape(2, 3)
+
+        out = to_matrix(mat, num_format=".2e")
+
+        assert (
+            out
+            == r"""\begin{bmatrix}
+0.00\mathrm{e}{+00} & 1.00\mathrm{e}{+00} & 2.00\mathrm{e}{+00} \\
+3.00\mathrm{e}{+00} & 4.00\mathrm{e}{+00} & 5.00\mathrm{e}{+00} \\
+\end{bmatrix}"""
+        )
+
     def test_scientific_notation(self) -> None:
         """Scientific  can be selected."""
         mat = np.array(

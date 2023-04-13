@@ -61,7 +61,7 @@ def _parse_lines(
     )
 
     if num_format and "e" in num_format:
-        pattern = r"e(-?\d+)"
+        pattern = r"e([\+-]?\d+)"
         replace = r"\\mathrm{e}{\g<1>}"
         if scientific_notation:
             replace = r" \\times 10^{\g<1>}"
