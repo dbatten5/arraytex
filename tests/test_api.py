@@ -292,15 +292,15 @@ Col 1 \\
 \end{tabular}"""
         )
 
-    class TestColIndex:
-        """Tests for the `col_index` support."""
+    class TestIndex:
+        """Tests for the `index` support."""
 
         def test_default(self) -> None:
-            """`col_index` forms the row names."""
-            col_index = ["Row 1", "Row 2"]
+            """`index` forms the row names."""
+            index = ["Row 1", "Row 2"]
             mat = np.arange(1, 5).reshape(2, 2)
 
-            out = to_tabular(mat, col_index=col_index)
+            out = to_tabular(mat, index=index)
 
             assert (
                 out
@@ -315,24 +315,24 @@ Row 2 & 3 & 4 \\
             )
 
         def test_bad_dimensions(self) -> None:
-            """An error is raised if wrong dimension of `col_index`."""
-            col_index = ["Row 1", "Row 2"]
+            """An error is raised if wrong dimension of `index`."""
+            index = ["Row 1", "Row 2"]
             mat = np.arange(1, 4).reshape(3, 1)
 
             with pytest.raises(DimensionMismatchError) as exc:
-                to_tabular(mat, col_index=col_index)
+                to_tabular(mat, index=index)
 
             assert str(exc.value) == (
-                "Number of `col_index` items (2) doesn't match number of rows (3)"
+                "Number of `index` items (2) doesn't match number of rows (3)"
             )
 
         def test_given_col_names(self) -> None:
             """A given index name as part of `col_names` is used."""
-            col_index = ["Row 1", "Row 2"]
+            index = ["Row 1", "Row 2"]
             col_names = ["My Index", "Col 1", "Col 2"]
             mat = np.arange(1, 5).reshape(2, 2)
 
-            out = to_tabular(mat, col_index=col_index, col_names=col_names)
+            out = to_tabular(mat, index=index, col_names=col_names)
 
             assert (
                 out
@@ -348,10 +348,10 @@ Row 2 & 3 & 4 \\
 
         def test_given_col_align(self) -> None:
             """A given col align char can be used for the col index."""
-            col_index = ["Row 1", "Row 2"]
+            index = ["Row 1", "Row 2"]
             mat = np.arange(1, 5).reshape(2, 2)
 
-            out = to_tabular(mat, col_index=col_index, col_align=["r", "c", "c"])
+            out = to_tabular(mat, index=index, col_align=["r", "c", "c"])
 
             assert (
                 out
@@ -367,7 +367,7 @@ Row 2 & 3 & 4 \\
 
         def test_given_col_name_and_align(self) -> None:
             """A given col index name and align can be used for the index."""
-            col_index = ["Row 1", "Row 2"]
+            index = ["Row 1", "Row 2"]
             col_names = ["My Index", "Col 1", "Col 2"]
             col_align = ["r", "c", "c"]
             mat = np.arange(1, 5).reshape(2, 2)
@@ -376,7 +376,7 @@ Row 2 & 3 & 4 \\
                 mat,
                 col_align=col_align,
                 col_names=col_names,
-                col_index=col_index,
+                index=index,
             )
 
             assert (
@@ -393,7 +393,7 @@ Row 2 & 3 & 4 \\
 
         def test_col_align_bad_dimensions(self) -> None:
             """Bad dimensions of `col_align` is caught."""
-            col_index = ["Row 1", "Row 2"]
+            index = ["Row 1", "Row 2"]
             col_names = ["My Index", "Col 1", "Col 2"]
             col_align = ["r", "c"]
             mat = np.arange(1, 5).reshape(2, 2)
@@ -403,7 +403,7 @@ Row 2 & 3 & 4 \\
                     mat,
                     col_align=col_align,
                     col_names=col_names,
-                    col_index=col_index,
+                    index=index,
                 )
 
             assert str(exc.value) == (

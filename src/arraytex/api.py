@@ -59,7 +59,7 @@ def to_tabular(
     scientific_notation: bool = False,
     col_align: Union[List[str], str] = "c",
     col_names: Optional[List[str]] = None,
-    col_index: Optional[List[str]] = None,
+    index: Optional[List[str]] = None,
     to_clp: bool = False,
 ) -> str:
     """Convert a numpy.NDArray to LaTeX tabular environment.
@@ -74,7 +74,7 @@ def to_tabular(
             is provided then each item will be assigned to each column, list size and
             number of columns must match
         col_names: an optional list of column names, otherwise generic names will be assigned
-        col_index: an optional list of column indices, i.e. row identifiers
+        index: an optional table index, i.e. row identifiers
         to_clp: copy the output to the system clipboard
 
     Returns:
@@ -96,7 +96,7 @@ def to_tabular(
     else:
         raise TooManyDimensionsError
 
-    if not col_index:
+    if not index:
         if isinstance(col_align, list) and len(col_align) != n_cols:
             raise DimensionMismatchError(
                 f"Number of `col_align` items ({len(col_align)}) "
@@ -110,7 +110,7 @@ def to_tabular(
             )
 
     if (
-        col_index
+        index
         and col_names
         and isinstance(col_align, list)
         and len(col_names) != len(col_align)
@@ -128,10 +128,10 @@ def to_tabular(
 
     lines = _parse_lines(arr, num_format, scientific_notation)
 
-    if col_index:
-        if len(col_index) != len(lines):
+    if index:
+        if len(index) != len(lines):
             raise DimensionMismatchError(
-                f"Number of `col_index` items ({len(col_index)}) "
+                f"Number of `index` items ({len(index)}) "
                 + f"doesn't match number of rows ({len(lines)})"
             )
 
@@ -142,7 +142,7 @@ def to_tabular(
             col_names.insert(0, "Index")
 
         for idx, line in enumerate(lines):
-            lines[idx] = f"{col_index[idx]} & " + line.strip()
+            lines[idx] = f"{index[idx]} & " + line.strip()
 
     rv = [f"\\begin{{tabular}}{{{' '.join(col_align)}}}"]
     rv += [r"\toprule"]

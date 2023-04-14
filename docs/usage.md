@@ -47,20 +47,20 @@ Different matrix style environment delimiters can be used:
 So can builtin number formatters:
 
 ```python
->>> print(to_matrix(A, num_format=".2e"))
+>>> print(to_matrix((A + 1) * 1e3, num_format=".2e"))
 \begin{bmatrix}
-0.00\mathrm{e}{+00} & 1.00\mathrm{e}{+00} & 2.00\mathrm{e}{+00} \\
-3.00\mathrm{e}{+00} & 4.00\mathrm{e}{+00} & 5.00\mathrm{e}{+00} \\
+1.00\mathrm{e}{+03} & 2.00\mathrm{e}{+03} & 3.00\mathrm{e}{+03} \\
+4.00\mathrm{e}{+03} & 5.00\mathrm{e}{+03} & 6.00\mathrm{e}{+03} \\
 \end{bmatrix}
 ```
 
 Prefer scientific notation to e-notation? No problem:
 
 ```python
->>> print(to_matrix(A, num_format=".2e", scientific_notation=True))
+>>> print(to_matrix((A + 1) * 1e3, num_format=".2e", scientific_notation=True))
 \begin{bmatrix}
-0.00 \times 10^{+00} & 1.00 \times 10^{+00} & 2.00 \times 10^{+00} \\
-3.00 \times 10^{+00} & 4.00 \times 10^{+00} & 5.00 \times 10^{+00} \\
+1.00 \times 10^{+03} & 2.00 \times 10^{+03} & 3.00 \times 10^{+03} \\
+4.00 \times 10^{+03} & 5.00 \times 10^{+03} & 6.00 \times 10^{+03} \\
 \end{bmatrix}
 ```
 
@@ -114,10 +114,10 @@ Data & More Data & Even More Data \\
 \end{tabular}
 ```
 
-Pass a list of column indices:
+Pass a list of row identifiers to be used as a table index:
 
 ```python
->>> print(to_tabular(A, col_index=["Sample 1", "Sample 2"]))
+>>> print(to_tabular(A, index=["Sample 1", "Sample 2"]))
 \begin{tabular}{l c c c}
 \toprule
 Index & Col 1 & Col 2 & Col 3 \\
@@ -128,10 +128,10 @@ Sample 2 & 3 & 4 & 5 \\
 \end{tabular}
 ```
 
-Specify the name of the name of index column through `col_names`:
+Specify the name of the index column through `col_names`:
 
 ```python
->>> print(to_tabular(A, col_index=["Sample 1", "Sample 2"], col_names=["Which Sample", "A", "B", "C"]))
+>>> print(to_tabular(A, index=["Sample 1", "Sample 2"], col_names=["Which Sample", "A", "B", "C"]))
 \begin{tabular}{l c c c}
 \toprule
 Which Sample & A & B & C \\
