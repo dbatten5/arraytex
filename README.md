@@ -32,6 +32,15 @@ Convert a `numpy.NDArray` to various LaTeX forms.
 1 & 2 & 3 \\
 4 & 5 & 6 \\
 \end{bmatrix}
+>>> print(atx.to_tabular(A))
+\begin{tabular}{c c c}
+\toprule
+Col 1 & Col 2 & Col 3 \\
+\midrule
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+\bottomrule
+\end{tabular}
 ```
 
 Inspired by [@josephcslater](https://github.com/josephcslater)'s
@@ -39,7 +48,7 @@ Inspired by [@josephcslater](https://github.com/josephcslater)'s
 
 ## Features
 
-- Support for different matrix environment delimiters, (`bmatrix`, `pmatrix`, etc.)
+- Support for matrix environments with different delimiters (`bmatrix`, `pmatrix`, etc.).
 - Support for tabular environments.
 - Support for builtin number formats (`:.2f`, `:.3e`, etc.).
 - Fully tested and typed.
