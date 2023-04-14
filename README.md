@@ -23,7 +23,7 @@
 
 Convert a `numpy.NDArray` to various LaTeX forms.
 
-```python
+```pycon
 >>> import numpy as np
 >>> import arraytex as atx
 >>> A = np.array([[1, 2, 3], [4, 5, 6]])
