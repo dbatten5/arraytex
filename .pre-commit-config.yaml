@@ -39,6 +39,7 @@ repos:
         language: system
         types: [python]
         require_serial: true
+        args: ["--fix"]
       - id: isort
         name: isort
         entry: isort
