@@ -78,6 +78,7 @@ module = [
 ignore_missing_imports = true
 
 [tool.ruff]
+src = ["src", "tests"]
 ignore = [
   'B019',
   'D203',
