@@ -123,7 +123,6 @@ def precommit(session: Session) -> None:
         "black",
         "darglint",
         "ruff",
-        "isort",
         "pep8-naming",
         "pre-commit",
         "pre-commit-hooks",
