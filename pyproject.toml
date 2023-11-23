@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "arraytex"
 version = "0.0.9"
-description = "ArrayTeX"
+description = "Convert Python data structures to LaTeX"
 authors = ["Dom Batten <dominic.batten@googlemail.com>"]
 license = "MIT"
 readme = "README.md"
@@ -33,13 +33,10 @@ safety = "^2.2.0"
 mypy = "*"
 black = "*"
 pre-commit = "^2.16.0"
-pep8-naming = "*"
 darglint = "*"
-reorder-python-imports = "*"
 pre-commit-hooks = "^4.0.1"
 Pygments = "^2.9.0"
 ruff = "*"
-pyupgrade = ">=2.29.1"
 
 [tool.poetry.group.docs.dependencies]
 furo = ">=2021.11.12"
@@ -81,30 +78,36 @@ ignore_missing_imports = true
 src = ["src", "tests"]
 ignore = [
   'B019',
-  'D203',
-  'D204',
-  'D213',
-  'D215',
-  'D400',
-  'D404',
-  'D406',
-  'D407',
-  'D408',
-  'D409',
-  'D413',
-  'E501'
+  'C901'
 ]
-line-length = 80
+line-length = 88
 select = [
+    'A',
+    'ARG',
     'B',
     'B9',
+    'BLE',
+    'C',
+    'C4',
     'D',
+    'DTZ',
     'E',
     'F',
+    'I',
     'N',
+    'PIE',
+    'PT',
+    'PTH',
+    'Q',
+    'RET',
+    'RUF',
     'S',
+    'SIM',
+    'SLF',
+    'T10',
+    'TCH',
+    'UP',
     'W',
-    'I001'
 ]
 
 [tool.ruff.mccabe]

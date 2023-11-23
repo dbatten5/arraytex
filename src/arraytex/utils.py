@@ -51,8 +51,8 @@ def _parse_lines(
     lines = (
         np.array2string(
             arr,
-            max_line_width=np.inf,  # type: ignore  # noqa
-            formatter=formatter,  # type: ignore  # noqa
+            max_line_width=np.inf,  # type: ignore
+            formatter=formatter,  # type: ignore
             separator=" & ",
         )
         .replace("[", "")
