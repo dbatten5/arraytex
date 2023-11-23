@@ -19,7 +19,7 @@ def to_matrix(
     style: str = "b",
     num_format: Optional[str] = None,
     scientific_notation: bool = False,
-    to_clp: bool = False,
+    to_clp: bool = False,  # noqa: ARG001
 ) -> str:
     """Convert a numpy.NDArray to LaTeX matrix.
 
@@ -60,7 +60,7 @@ def to_tabular(
     col_align: Union[List[str], str] = "c",
     col_names: Optional[List[str]] = None,
     index: Optional[List[str]] = None,
-    to_clp: bool = False,
+    to_clp: bool = False,  # noqa: ARG001
 ) -> str:
     """Convert a numpy.NDArray to LaTeX tabular environment.
 
@@ -70,10 +70,11 @@ def to_tabular(
         scientific_notation: a flag to determine whether 1 x 10^3 should be used,
             otherwise e-notation is used (1e3)
         col_align: set the alignment of the columns, usually "c", "r" or "l". If a
-            single character is provided then it will be broadcast to all columns. If a list
-            is provided then each item will be assigned to each column, list size and
-            number of columns must match
-        col_names: an optional list of column names, otherwise generic names will be assigned
+            single character is provided then it will be broadcast to all columns. If a
+            list is provided then each item will be assigned to each column, list size
+            and number of columns must match
+        col_names: an optional list of column names, otherwise generic names will be
+            assigned
         index: an optional table index, i.e. row identifiers
         to_clp: copy the output to the system clipboard
 
